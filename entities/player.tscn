@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfm304rxqx24q"]
+
+[ext_resource type="Script" path="res://entities/player.gd" id="1_6nvth"]
+[ext_resource type="Texture2D" uid="uid://djihwxddyt0j6" path="res://icon.svg" id="1_sxtih"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jc1wd"]
+radius = 63.1269
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 14
+motion_mode = 1
+script = ExtResource("1_6nvth")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sxtih")
+
+[node name="Label" type="Label" parent="Sprite2D"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = -88.0
+offset_right = -64.0
+offset_bottom = -65.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "State"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Sprite2D"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = -113.0
+offset_right = -64.0
+offset_bottom = -86.0
+grow_horizontal = 2
+value = 100.0
+
+[node name="Label2" type="Label" parent="Sprite2D"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = -136.0
+offset_right = -64.0
+offset_bottom = -113.0
+grow_horizontal = 2
+text = "Interact?"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jc1wd")
+
+[connection signal="value_changed" from="Sprite2D/ProgressBar" to="." method="_on_progress_bar_value_changed"]

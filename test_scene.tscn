@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://dl8gj0fo2wvu5"]
+
+[ext_resource type="PackedScene" uid="uid://bfm304rxqx24q" path="res://entities/player.tscn" id="1_66hte"]
+[ext_resource type="PackedScene" uid="uid://bgahk4af8jwg7" path="res://entities/hide_spot.tscn" id="2_t25tu"]
+[ext_resource type="PackedScene" uid="uid://3pn3hiqsf15c" path="res://entities/cat.tscn" id="3_4yo52"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1siok"]
+size = Vector2(20, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxb63"]
+size = Vector2(1920, 20)
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_66hte")]
+position = Vector2(236, 116)
+
+[node name="HideSpot" parent="." instance=ExtResource("2_t25tu")]
+position = Vector2(529, 229)
+
+[node name="HideSpot2" parent="." instance=ExtResource("2_t25tu")]
+position = Vector2(462, 816)
+
+[node name="HideSpot6" parent="." instance=ExtResource("2_t25tu")]
+position = Vector2(802, 829)
+
+[node name="HideSpot3" parent="." instance=ExtResource("2_t25tu")]
+position = Vector2(1217, 454)
+
+[node name="HideSpot4" parent="." instance=ExtResource("2_t25tu")]
+position = Vector2(1611, 181)
+
+[node name="HideSpot5" parent="." instance=ExtResource("2_t25tu")]
+position = Vector2(1554, 873)
+
+[node name="Cat" parent="." instance=ExtResource("3_4yo52")]
+position = Vector2(176, 260)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 540)
+collision_layer = 8
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_1siok")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1920, 540)
+collision_layer = 8
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_1siok")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(960, 0)
+collision_layer = 8
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_qxb63")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(960, 1080)
+collision_layer = 8
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("RectangleShape2D_qxb63")

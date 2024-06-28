@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgahk4af8jwg7"]
+
+[ext_resource type="Texture2D" uid="uid://djihwxddyt0j6" path="res://icon.svg" id="1_n60dk"]
+[ext_resource type="Script" path="res://entities/hide_spot.gd" id="1_ug8k7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8oce"]
+size = Vector2(128, 126)
+
+[node name="HideSpot" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ug8k7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_n60dk")
+
+[node name="ProgressBar" type="ProgressBar" parent="Sprite2D"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = -91.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+max_value = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y8oce")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="value_changed" from="Sprite2D/ProgressBar" to="." method="_on_progress_bar_value_changed"]
