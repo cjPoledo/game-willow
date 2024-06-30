@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl8gj0fo2wvu5"]
+[gd_scene load_steps=7 format=3 uid="uid://dl8gj0fo2wvu5"]
 
 [ext_resource type="PackedScene" uid="uid://bfm304rxqx24q" path="res://entities/player.tscn" id="1_66hte"]
 [ext_resource type="PackedScene" uid="uid://bgahk4af8jwg7" path="res://entities/hide_spot.tscn" id="2_t25tu"]
 [ext_resource type="PackedScene" uid="uid://3pn3hiqsf15c" path="res://entities/cat.tscn" id="3_4yo52"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_y2rmk"]
+vertices = PackedVector2Array(603, 302, 1537, 254, 1685, 254, 1291, 381, 1143, 381, 1628, 946, 1900, 1060, 20, 1060, 1480, 946, 876, 902, 1480, 800, 728, 902, 536, 889, 388, 889, 1685, 108, 1900, 20, 20, 20, 1537, 108, 1628, 800, 1291, 527, 388, 743, 1143, 527, 876, 756, 728, 756, 536, 743, 603, 156, 455, 156, 455, 302)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(8, 7, 9, 10), PackedInt32Array(11, 9, 7), PackedInt32Array(12, 11, 7, 13), PackedInt32Array(2, 14, 15, 6), PackedInt32Array(16, 15, 14, 17), PackedInt32Array(2, 6, 5, 18), PackedInt32Array(19, 3, 2, 18, 10), PackedInt32Array(13, 7, 16, 20), PackedInt32Array(21, 19, 10, 9, 22), PackedInt32Array(23, 11, 12, 24, 0), PackedInt32Array(1, 0, 25, 17), PackedInt32Array(16, 17, 25, 26), PackedInt32Array(20, 16, 26, 27), PackedInt32Array(24, 20, 27, 0), PackedInt32Array(22, 23, 0, 4, 21)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1918, -2, 1921, 1074, -6, 1080)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1siok"]
 size = Vector2(20, 1080)
@@ -12,62 +18,65 @@ size = Vector2(1920, 20)
 
 [node name="TestScene" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_66hte")]
-position = Vector2(236, 116)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_y2rmk")
 
-[node name="HideSpot" parent="." instance=ExtResource("2_t25tu")]
+[node name="HideSpot" parent="NavigationRegion2D" instance=ExtResource("2_t25tu")]
 position = Vector2(529, 229)
 
-[node name="HideSpot2" parent="." instance=ExtResource("2_t25tu")]
+[node name="HideSpot2" parent="NavigationRegion2D" instance=ExtResource("2_t25tu")]
 position = Vector2(462, 816)
 
-[node name="HideSpot6" parent="." instance=ExtResource("2_t25tu")]
+[node name="HideSpot6" parent="NavigationRegion2D" instance=ExtResource("2_t25tu")]
 position = Vector2(802, 829)
 
-[node name="HideSpot3" parent="." instance=ExtResource("2_t25tu")]
+[node name="HideSpot3" parent="NavigationRegion2D" instance=ExtResource("2_t25tu")]
 position = Vector2(1217, 454)
 
-[node name="HideSpot4" parent="." instance=ExtResource("2_t25tu")]
+[node name="HideSpot4" parent="NavigationRegion2D" instance=ExtResource("2_t25tu")]
 position = Vector2(1611, 181)
 
-[node name="HideSpot5" parent="." instance=ExtResource("2_t25tu")]
+[node name="HideSpot5" parent="NavigationRegion2D" instance=ExtResource("2_t25tu")]
 position = Vector2(1554, 873)
 
-[node name="Cat" parent="." instance=ExtResource("3_4yo52")]
-position = Vector2(176, 260)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D"]
 position = Vector2(0, 540)
 collision_layer = 8
 collision_mask = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D"]
 shape = SubResource("RectangleShape2D_1siok")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="StaticBody2D2" type="StaticBody2D" parent="NavigationRegion2D"]
 position = Vector2(1920, 540)
 collision_layer = 8
 collision_mask = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D2"]
 shape = SubResource("RectangleShape2D_1siok")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+[node name="StaticBody2D3" type="StaticBody2D" parent="NavigationRegion2D"]
 position = Vector2(960, 0)
 collision_layer = 8
 collision_mask = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D3"]
 shape = SubResource("RectangleShape2D_qxb63")
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+[node name="StaticBody2D4" type="StaticBody2D" parent="NavigationRegion2D"]
 position = Vector2(960, 1080)
 collision_layer = 8
 collision_mask = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D4"]
 shape = SubResource("RectangleShape2D_qxb63")
+
+[node name="Player" parent="." instance=ExtResource("1_66hte")]
+position = Vector2(236, 116)
+
+[node name="Cat" parent="." instance=ExtResource("3_4yo52")]
+position = Vector2(176, 260)

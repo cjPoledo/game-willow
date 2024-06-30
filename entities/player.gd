@@ -1,30 +1,26 @@
 extends CharacterBody2D
 
-@export var speed = 300
-@export var run_speed = 900
+@export var speed = 500
+@export var run_speed = 1000
 @export var max_stam = 100
 @export var stam_consumption = 100
 @export var stam_regen = 50
 
 var curr_stam = max_stam
 var exhausted = false # for preventing running immediately after stam is 0
-var interact_lock = false # for preventing movement when just interacted
-var can_interact = false
-var interacted_object = null
+var interactables = []
 
 # states
 enum {
 	STATE_IDLE,
 	STATE_WALK,
-	STATE_RUN,
-	STATE_INTERACT
+	STATE_RUN
 }
 # debugging purposes, delete later
 enum states {
 	STATE_IDLE,
 	STATE_WALK,
-	STATE_RUN,
-	STATE_INTERACT
+	STATE_RUN
 }
 var curr_state = STATE_IDLE
 
@@ -33,9 +29,6 @@ func handle_input():
 		STATE_IDLE:
 			if Input.is_action_just_released("run"):
 				exhausted = false
-			if Input.is_action_just_pressed("interact") and can_interact:
-				transition_state(STATE_INTERACT)
-				return # to not execute the code below
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			if input_dir != Vector2.ZERO:
 				if Input.is_action_pressed("run") and curr_stam > 0 and not exhausted:
@@ -47,9 +40,6 @@ func handle_input():
 		STATE_WALK:
 			if Input.is_action_just_released("run"):
 				exhausted = false
-			if Input.is_action_just_pressed("interact") and can_interact:
-				transition_state(STATE_INTERACT)
-				return # to not execute the code below
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			if input_dir != Vector2.ZERO:
 				if Input.is_action_pressed("run") and curr_stam > 0 and not exhausted:
@@ -61,9 +51,6 @@ func handle_input():
 			# idle state if no key pressed
 			transition_state(STATE_IDLE)
 		STATE_RUN:
-			if Input.is_action_just_pressed("interact") and can_interact:
-				transition_state(STATE_INTERACT)
-				return # to not execute the code below
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			if input_dir != Vector2.ZERO:
 				if Input.is_action_pressed("run") and curr_stam > 0:
@@ -74,24 +61,6 @@ func handle_input():
 				return # return to not transition to idle
 			# idle state if no key pressed
 			transition_state(STATE_IDLE)
-		STATE_INTERACT:
-			if not can_interact:
-				transition_state(STATE_IDLE)
-				return
-			if interact_lock and Input.is_action_just_pressed("up") \
-				or Input.is_action_just_pressed("down") \
-				or Input.is_action_just_pressed("left") \
-				or Input.is_action_just_pressed("right"):
-				interact_lock = false
-			if not interact_lock:
-				var input_dir = Input.get_vector("left", "right", "up", "down")
-				if input_dir != Vector2.ZERO:
-					if Input.is_action_pressed("run") and curr_stam > 0:
-						velocity = input_dir * run_speed
-						transition_state(STATE_RUN)
-					else:
-						velocity = input_dir * speed
-						transition_state(STATE_WALK)
 
 func _physics_process(delta):
 	handle_input()
@@ -104,8 +73,6 @@ func _physics_process(delta):
 		STATE_RUN:
 			curr_stam -= stam_consumption * delta
 			move_and_slide()
-		STATE_INTERACT:
-			curr_stam += stam_regen * delta
 	curr_stam = clamp(snapped(curr_stam, 0.01), 0, max_stam)
 	
 	$Sprite2D/Label.text = str(states.keys()[curr_state])
@@ -121,9 +88,6 @@ func transition_state(state_to):
 		STATE_RUN:
 			if curr_stam == 0:
 				exhausted = true
-		STATE_INTERACT:
-			if can_interact:
-				interacted_object.interact(false)
 	
 	# enter
 	match state_to:
@@ -133,17 +97,43 @@ func transition_state(state_to):
 			pass
 		STATE_RUN:
 			pass
-		STATE_INTERACT:
-			interacted_object.interact(true)
-			interact_lock = true
 	curr_state = state_to
-
-func set_can_interact(value, object):
-	can_interact = value
-	$Sprite2D/Label2.visible = value
-	interacted_object = object
 
 
 func _on_progress_bar_value_changed(value):
 	if value == $Sprite2D/ProgressBar.max_value:
 		exhausted = false
+
+
+func _on_scan_area_area_entered(area):
+	if area.is_in_group("cat"):
+		interactables.append(area)
+		area.set_can_be_picked(true)
+		$Sprite2D/Label2.visible = true
+		$Sprite2D/Label2.text = str(interactables)
+
+
+func _on_scan_area_area_exited(area):
+	if area.is_in_group("cat"):
+		interactables.erase(area)
+		area.set_can_be_picked(false)
+		$Sprite2D/Label2.text = str(interactables)
+		if interactables.is_empty():
+			$Sprite2D/Label2.visible = false
+
+
+func _on_scan_area_body_entered(body):
+	if body.is_in_group("hide_spot"):
+		interactables.append(body)
+		body.set_can_be_picked(true)
+		$Sprite2D/Label2.visible = true
+		$Sprite2D/Label2.text = str(interactables)
+
+
+func _on_scan_area_body_exited(body: Node2D):
+	if body.is_in_group("hide_spot"):
+		interactables.erase(body)
+		body.set_can_be_picked(false)
+		$Sprite2D/Label2.text = str(interactables)
+		if interactables.is_empty():
+			$Sprite2D/Label2.visible = false
