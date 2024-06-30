@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgahk4af8jwg7"]
+[gd_scene load_steps=7 format=3 uid="uid://bgahk4af8jwg7"]
 
-[ext_resource type="Texture2D" uid="uid://djihwxddyt0j6" path="res://icon.svg" id="1_n60dk"]
 [ext_resource type="Script" path="res://entities/hide_spot.gd" id="1_ug8k7"]
+[ext_resource type="Texture2D" uid="uid://dadi4vuairqs3" path="res://assets/obstacles.png" id="2_jhsie"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8oce"]
-size = Vector2(128, 126)
+size = Vector2(16, 9)
 
 [sub_resource type="Animation" id="Animation_ehlpb"]
 resource_name = "interacted"
@@ -28,16 +28,21 @@ _data = {
 "interacted": SubResource("Animation_ehlpb")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pps4y"]
+size = Vector2(16, 16)
+
 [node name="HideSpot" type="StaticBody2D" groups=["hide_spot"]]
 collision_layer = 4
 collision_mask = 3
-input_pickable = true
 script = ExtResource("1_ug8k7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_n60dk")
+texture = ExtResource("2_jhsie")
+hframes = 2
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_y8oce")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -45,9 +50,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ivdnr")
 }
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="MouseDet" type="Area2D" parent="."]
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDet"]
+shape = SubResource("RectangleShape2D_pps4y")
+
+[connection signal="mouse_entered" from="MouseDet" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDet" to="." method="_on_mouse_exited"]

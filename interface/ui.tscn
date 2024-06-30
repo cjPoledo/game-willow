@@ -1,0 +1,182 @@
+[gd_scene load_steps=7 format=3 uid="uid://mirwyc5yx1qm"]
+
+[ext_resource type="Script" path="res://interface/ui.gd" id="1_43ha5"]
+[ext_resource type="FontFile" uid="uid://b42yskm0qai2y" path="res://assets/PixelifySans-Regular.ttf" id="2_jtdnh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hhmi8"]
+font = ExtResource("2_jtdnh")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_ggsip"]
+font = ExtResource("2_jtdnh")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_bohv6"]
+font = ExtResource("2_jtdnh")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_5i22k"]
+font = ExtResource("2_jtdnh")
+font_size = 20
+font_color = Color(1, 1, 0, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_43ha5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TimeLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Time: "
+label_settings = SubResource("LabelSettings_hhmi8")
+
+[node name="Time" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_hhmi8")
+
+[node name="GameOver" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.105882, 0.105882, 0.458824)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -25.0
+offset_right = 98.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+text = "You caught Willow!"
+label_settings = SubResource("LabelSettings_ggsip")
+horizontal_alignment = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Elapsed Time:"
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="GameOver/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_5i22k")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="GameOver/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "seconds"
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Hid" type="Label" parent="GameOver/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Willow hid"
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="Hid2" type="Label" parent="GameOver/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_5i22k")
+horizontal_alignment = 1
+
+[node name="Hid3" type="Label" parent="GameOver/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "times."
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AlmostCaught" type="Label" parent="GameOver/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "You almost caught Willow"
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="AlmostCaught2" type="Label" parent="GameOver/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_5i22k")
+horizontal_alignment = 1
+
+[node name="AlmostCaught3" type="Label" parent="GameOver/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "times."
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseEncounter" type="Label" parent="GameOver/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Close to capturing:"
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="CloseEncounter2" type="Label" parent="GameOver/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_5i22k")
+horizontal_alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Dodges" type="Label" parent="GameOver/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Dodged capture:"
+label_settings = SubResource("LabelSettings_bohv6")
+horizontal_alignment = 1
+
+[node name="Dodges2" type="Label" parent="GameOver/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_5i22k")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jtdnh")
+theme_override_font_sizes/font_size = 32
+text = "Open the Door Again"
+
+[connection signal="pressed" from="GameOver/VBoxContainer/Button" to="." method="_on_button_pressed"]
