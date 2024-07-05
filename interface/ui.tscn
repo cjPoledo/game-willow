@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://mirwyc5yx1qm"]
+[gd_scene load_steps=9 format=3 uid="uid://mirwyc5yx1qm"]
 
 [ext_resource type="Script" path="res://interface/ui.gd" id="1_43ha5"]
 [ext_resource type="FontFile" uid="uid://b42yskm0qai2y" path="res://assets/PixelifySans-Regular.ttf" id="2_jtdnh"]
+[ext_resource type="AudioStream" uid="uid://u1vovg77yfnw" path="res://assets/audio/The Chase FX.mp3" id="3_wuffa"]
+[ext_resource type="AudioStream" uid="uid://dic5ufxonnmxu" path="res://assets/audio/win.wav" id="4_0fiev"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hhmi8"]
 font = ExtResource("2_jtdnh")
@@ -177,6 +179,19 @@ layout_mode = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_jtdnh")
 theme_override_font_sizes/font_size = 32
+disabled = true
 text = "Open the Door Again"
 
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wuffa")
+volume_db = -10.0
+autoplay = true
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0fiev")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="GameOver/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

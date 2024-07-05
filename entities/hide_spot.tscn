@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgahk4af8jwg7"]
+[gd_scene load_steps=8 format=3 uid="uid://bgahk4af8jwg7"]
 
 [ext_resource type="Script" path="res://entities/hide_spot.gd" id="1_ug8k7"]
 [ext_resource type="Texture2D" uid="uid://dadi4vuairqs3" path="res://assets/obstacles.png" id="2_jhsie"]
+[ext_resource type="AudioStream" uid="uid://dyen4ad4c2nli" path="res://assets/audio/thud.wav" id="3_2106w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8oce"]
 size = Vector2(16, 9)
@@ -54,6 +55,9 @@ libraries = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDet"]
 shape = SubResource("RectangleShape2D_pps4y")
+
+[node name="thud" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2106w")
 
 [connection signal="mouse_entered" from="MouseDet" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MouseDet" to="." method="_on_mouse_exited"]

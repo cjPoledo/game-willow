@@ -11,6 +11,7 @@ const ENDPOINT = Vector2(320 - 16*5, 256)
 @onready var camera := $StartCam
 @onready var ui := $UI
 @onready var tilemap := $NavigationRegion2D/TileMap
+@onready var thud := $thud
 
 var obstacles := []
 var obstacle_scene := preload("res://entities/hide_spot.tscn")
@@ -60,5 +61,7 @@ func _on_animation_player_animation_finished(anim_name):
 func end_scene():
 	await get_tree().create_timer(1).timeout
 	tilemap.set_cell(0, Vector2i(19, 13), 0, Vector2i(3, 1))
+	thud.play()
 	await get_tree().create_timer(0.3).timeout
 	tilemap.set_cell(0, Vector2i(19, 13), 0, Vector2i(3, 0))
+	thud.play()

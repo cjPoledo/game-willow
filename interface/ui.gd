@@ -12,12 +12,17 @@ var started = false
 @onready var hide_label = $GameOver/VBoxContainer/HBoxContainer/Hid2
 @onready var dodge_label = $GameOver/VBoxContainer/HBoxContainer4/Dodges2
 
+@onready var bgm := $bgm
+@onready var win := $win
+
 func _process(delta):
 	if started:
 		time += delta
 		time_label.text = str(round(time))
 
 func game_over(hid, hover, dodge):
+	bgm.stop()
+	win.play()
 	started = false
 	game_time_container.visible = false
 	final_score_label.text = str(snapped(time, 0.01))
@@ -26,7 +31,12 @@ func game_over(hid, hover, dodge):
 	close_enc_label.text = str(hover)
 	dodge_label.text = str(dodge)
 	game_over_screen.visible = true
+	$Timer.start()
 
 
 func _on_button_pressed():
 	get_tree().reload_current_scene()
+
+
+func _on_timer_timeout():
+	$GameOver/VBoxContainer/Button.disabled = false

@@ -6,6 +6,7 @@ const NUM_OBJ = 2
 
 @onready var anim_player = $AnimationPlayer
 @onready var sprite = $Sprite2D
+@onready var thud = $thud
 
 var elapsed_time = 0
 var can_be_picked = false
@@ -23,7 +24,7 @@ func _input(event):
 	and can_be_picked and mouse_hovered:
 		interacting = true
 		anim_player.play("interacted")
-		
+		thud.play()
 
 func _physics_process(delta):
 	if can_be_picked and interacting:

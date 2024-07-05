@@ -6,7 +6,7 @@ const LIGHTEN = Color(2, 2, 2, 1)
 const DEFAULT_COL = Color(1, 1, 1, 1)
 
 @export var speed := 70
-@export var jump_chance := 0.50
+@export var jump_chance := 0.75
 
 @onready var nav := $NavigationAgent2D
 @onready var sprite := $AnimatedSprite2D
@@ -14,6 +14,8 @@ const DEFAULT_COL = Color(1, 1, 1, 1)
 @onready var collision := $CollisionShape2D
 @onready var anim_player := $AnimationPlayer
 @onready var tease_sprite := $AnimatedSprite2D/AnimatedSprite2D
+@onready var meow := $meow
+@onready var hiss := $hiss
 
 var can_be_picked = false
 var mouse_hovered = false
@@ -28,6 +30,10 @@ var hovers := 0
 var dodges := 0
 
 func start_movement():
+	call_deferred("initialize_nav")
+
+func initialize_nav():
+	await get_tree().physics_frame
 	pick_new_target()
 
 func _input(event):
@@ -42,6 +48,7 @@ func _input(event):
 			invul_phase = true
 			pause_timer.start()
 			dodges += 1
+			hiss.play()
 			return
 		emit_signal("caught", hid, hovers, dodges)
 		pause_timer.stop()
@@ -101,6 +108,7 @@ func pick_new_target():
 		visible = true
 		finished = false
 		pause_timer.start()
+		meow.play()
 
 
 func _on_navigation_agent_2d_navigation_finished():

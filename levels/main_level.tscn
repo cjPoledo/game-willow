@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctcxs23udrkq2"]
+[gd_scene load_steps=14 format=3 uid="uid://ctcxs23udrkq2"]
 
 [ext_resource type="Script" path="res://levels/main_level.gd" id="1_xq1nc"]
 [ext_resource type="Texture2D" uid="uid://tkfq4s3gefip" path="res://assets/floor.png" id="2_xyelv"]
 [ext_resource type="Texture2D" uid="uid://edsk85m10ol7" path="res://assets/top wall.png" id="3_tcox6"]
 [ext_resource type="PackedScene" uid="uid://mirwyc5yx1qm" path="res://interface/ui.tscn" id="4_ruiva"]
+[ext_resource type="AudioStream" uid="uid://dyen4ad4c2nli" path="res://assets/audio/thud.wav" id="5_ssw0a"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wjc75"]
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 320, 0, 320, 256, 0, 256)])
@@ -236,5 +237,8 @@ libraries = {
 }
 
 [node name="UI" parent="." instance=ExtResource("4_ruiva")]
+
+[node name="thud" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ssw0a")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
